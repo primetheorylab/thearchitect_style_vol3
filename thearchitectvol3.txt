@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Architect Vol. 3: Visual Engineering</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #334155;
+            font-family: 'Inter', sans-serif;
+            padding: 20px 0;
+            color: #1e293b;
+            margin: 0;
+        }
+        
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            width: 100%;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 100%;
+            min-height: auto; 
+            padding-bottom: 60px;
+            background-color: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 768px) {
+            body { padding: 40px 0; }
+            .page-container { gap: 40px; padding: 0; }
+            .page {
+                width: 210mm;
+                min-height: 297mm;
+                max-width: none;
+                padding-bottom: 0;
+            }
+        }
+
+        .bg-grid {
+            background-image: linear-gradient(#f1f5f9 1px, transparent 1px),
+            linear-gradient(90deg, #f1f5f9 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        h1, h2, h3, h4, .font-oswald { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+
+        .content-padding { padding: 1.5rem; }
+        @media (min-width: 768px) { .content-padding { padding: 3rem; } }
+
+        .section-break {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .cyan-box {
+            background-color: #ecfeff;
+            border-left: 4px solid #06b6d4;
+            padding: 1rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .slate-box {
+            background-color: #f1f5f9;
+            border-left: 4px solid #334155;
+            padding: 1rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .footer-logo {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 10px;
+            color: #cbd5e1;
+            letter-spacing: 2px;
+        }
+
+        p { margin-bottom: 1rem; line-height: 1.6; font-size: 0.95rem; text-align: justify; }
+        ul, ol { margin-bottom: 1rem; padding-left: 1.25rem; }
+        li { margin-bottom: 0.5rem; font-size: 0.95rem; line-height: 1.6; }
+        strong { color: #0f172a; font-weight: 700; }
+        .chapter-title { font-size: 2rem; font-weight: 700; line-height: 1.1; margin-bottom: 1.5rem; color: #0f172a; }
+        @media (min-width: 768px) { .chapter-title { font-size: 2.5rem; } }
+        .sub-title { font-size: 1.25rem; font-weight: 600; color: #06b6d4; margin-bottom: 1rem; font-family: 'Oswald', sans-serif; }
+        
+        .technical-img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #cbd5e1;
+            display: block;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            background-color: #f8fafc;
+        }
+        
+        .img-caption {
+            font-size: 0.75rem;
+            color: #64748b;
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+
+        <!-- ================= PAGE 1: COVER ================= -->
+        <div class="page bg-slate-900 text-white relative flex flex-col justify-between p-6 md:p-10 min-h-[500px] md:min-h-[297mm]">
+            <div class="absolute inset-0 bg-grid opacity-10"></div>
+            
+            <div class="z-10 flex justify-between items-start border-b border-slate-700 pb-4">
+                <div class="text-cyan-400 text-xs tracking-[0.2em] md:tracking-[0.4em] font-bold">PRIMETHEORY.LAB</div>
+                <div class="text-slate-500 text-[10px] text-right">PREMIUM EDITION<br>VOL. 03 - 2025</div>
+            </div>
+
+            <!-- VISUAL: COVER ART -->
+            <div class="z-10 flex-grow flex items-center justify-center my-8 md:my-0">
+                <img 
+                    src="assets/v3-cover.jpg" 
+                    onerror="this.onerror=null; this.src='https://placehold.co/600x600/0f172a/06b6d4?text=FILE+NEEDED:+assets/v3-cover.jpg&font=oswald';"
+                    alt="Cover Art: Visual Engineering" 
+                    class="rounded-full border-4 border-cyan-500/30 shadow-[0_0_50px_rgba(6,182,212,0.3)] max-w-[80%] md:max-w-[80%] object-cover aspect-square"
+                >
+            </div>
+
+            <div class="z-10 mb-10">
+                <h1 class="text-5xl md:text-[7rem] font-bold leading-none text-white tracking-tighter">THE<br><span class="text-cyan-500">ARCHITECT</span></h1>
+                <div class="flex items-center gap-4 mt-6">
+                    <div class="h-1 w-10 md:w-20 bg-white"></div>
+                    <h2 class="text-lg md:text-2xl text-slate-300 font-light tracking-widest">VOLUME 3: STYLE</h2>
+                </div>
+                <p class="text-slate-400 mt-4 text-sm max-w-sm">Visual Engineering: The Complete Style Systems.</p>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 2: TOC & LEGAL ================= -->
+        <div class="page bg-white content-padding">
+            <div class="mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-8 font-oswald">DAFTAR ISI VOL. 3</h2>
+                <ul class="space-y-4 font-oswald text-slate-700 text-sm md:text-base">
+                    <li class="flex justify-between border-b border-slate-200 pb-2"><span>1. PENDAHULUAN: The ROI of Style</span> <span>03</span></li>
+                    <li class="flex justify-between border-b border-slate-200 pb-2"><span>2. CHAPTER 1: THE PHYSICS OF FIT (HUKUM FISIKA)</span> <span>04</span></li>
+                    <li class="flex justify-between border-b border-slate-200 pb-2"><span>3. CHAPTER 2: ARCHETYPES (PILIH KARAKTER LO)</span> <span>06</span></li>
+                    <li class="flex justify-between border-b border-slate-200 pb-2"><span>4. CHAPTER 3: FABRIC SCIENCE (SURVIVAL TROPIS)</span> <span>08</span></li>
+                    <li class="flex justify-between border-b border-slate-200 pb-2"><span>5. CHAPTER 4: COLOR & PROPORTION</span> <span>10</span></li>
+                    <li class="flex justify-between border-b border-slate-200 pb-2"><span>6. CHAPTER 5: BODY TYPE ARCHITECTURE</span> <span>11</span></li>
+                    <li class="flex justify-between border-b border-slate-200 pb-2"><span>7. CHAPTER 6: THE CAPSULE WARDROBE (THE CORE)</span> <span>12</span></li>
+                    <li class="flex justify-between border-b border-slate-200 pb-2"><span>8. CHAPTER 7: OCCASION MASTERY (KONTEKS)</span> <span>15</span></li>
+                    <li class="flex justify-between border-b border-slate-200 pb-2"><span>9. ACTION PLAN</span> <span>17</span></li>
+                </ul>
+            </div>
+            <div class="mt-auto text-xs text-slate-500">
+                <p class="font-bold mb-2">DISCLAIMER</p>
+                <p>Buku ini disusun berdasarkan teori estetika visual dan psikologi sosial. Referensi merek hanyalah contoh dan bukan endorsemen berbayar. Penulis tidak bertanggung jawab atas keputusan pembelian pribadi.</p>
+                <p class="mt-4">&copy; 2025 PrimeTheory.Lab. All rights reserved.</p>
+            </div>
+            <div class="page-number">02</div>
+        </div>
+
+        <!-- ================= PAGE 3: PENDAHULUAN ================= -->
+        <div class="page bg-white content-padding bg-grid">
+            <h1 class="chapter-title">PENDAHULUAN:<br>THE ROI OF STYLE</h1>
+            
+            <p>Banyak cowok mikir fashion itu "ribet" atau "buat cewek doang". Salah besar. <strong>Style itu Engineering. Style itu Arsitektur.</strong></p>
+            
+            <img 
+                src="assets/v3-intro.jpg" 
+                onerror="this.onerror=null; this.src='https://placehold.co/800x300/f8fafc/334155?text=FILE+NEEDED:+assets/v3-intro.jpg';"
+                alt="Enclothed Cognition Visualization" 
+                class="technical-img"
+            >
+            <p class="img-caption">Fig 0.1: Efek Psikologis Pakaian terhadap Kepercayaan Diri.</p>
+
+            <h3 class="sub-title mt-6">Enclothed Cognition</h3>
+            <p>Di psikologi ada istilah <strong>"Enclothed Cognition"</strong>. Intinya: Baju yang lo pake gak cuma ngubah cara orang liat lo, tapi ngubah cara kerja otak lo sendiri.</p>
+            <ul class="list-disc space-y-2 mb-6">
+                <li>Kalau lo pake baju tidur, otak lo mode males.</li>
+                <li>Kalau lo pake setelan jas yang pas (tailored) atau boots kulit yang kokoh, testosteron lo naik, postur lo tegap, dan lo ngerasa dominan.</li>
+            </ul>
+            
+            <p>Style adalah investasi dengan <strong>ROI (Return on Investment)</strong> tertinggi. Dengan modal kemeja yang pas dan sepatu bersih, lo bisa dapet respek instan, pelayanan lebih baik di toko, dan atensi wanita, bahkan sebelum lo ngomong satu kata pun.</p>
+            
+            <div class="slate-box">
+                <p class="mb-0 text-sm">Di volume ini, kita gak ngomongin tren fashion musiman yang norak. Kita ngomongin sistem gaya abadi yang bikin lo terlihat mahal, maskulin, dan kompeten.</p>
+            </div>
+            
+            <div class="page-number">03</div>
+            <div class="footer-logo">THE ARCHITECT</div>
+        </div>
+
+        <!-- ================= PAGE 4: CHAPTER 1 (FIT) ================= -->
+        <div class="page bg-white content-padding">
+            <h1 class="chapter-title">CHAPTER 1:<br>THE PHYSICS OF FIT</h1>
+            <p>Baju 10 Juta bakal kelihatan kayak sampah pasar loak kalau ukurannya salah. Kaos 50 Ribu bisa kelihatan mewah kalau fit-nya sempurna.</p>
+            <p class="mb-6 font-bold text-slate-800">Jangan percaya label "S, M, L". Itu ukuran pabrik, bukan ukuran badan lo. Sahabat terbaik lo mulai sekarang adalah Tailor (Tukang Vermak).</p>
+            
+            <h3 class="sub-title">1. Jahitan Bahu (The Anchor Point)</h3>
+            
+            <img 
+                src="assets/v3-fit-shoulder.jpg" 
+                onerror="this.onerror=null; this.src='https://placehold.co/800x300/f1f5f9/334155?text=FILE+NEEDED:+assets/v3-fit-shoulder.jpg';"
+                alt="Correct vs Incorrect Shoulder Seam" 
+                class="technical-img"
+            >
+            <p class="img-caption">Fig 1.1: Jahitan harus jatuh TEPAT di ujung tulang bahu (Acromion).</p>
+
+            <p>Ini aturan paling sakral. Jahitan pertemuan antara lengan dan badan baju HARUS jatuh TEPAT di ujung tulang bahu lo (Acromion bone).</p>
+            <ul class="list-disc space-y-2 mb-6">
+                <li><strong>Lewat dikit:</strong> Lo kelihatan kayak bocah pinjem baju bapaknya. Bahu lo jadi kelihatan turun (lemah).</li>
+                <li><strong>Kurang dikit:</strong> Baju kekecilan, ketiak kejepit, kepala lo jadi kelihatan gede kayak pentol korek.</li>
+                <li><strong>Note:</strong> Bagian ini SUSAH dipermak. Pas beli harus udah pas di bahu. Sisanya bisa diakalin.</li>
+            </ul>
+
+            <h3 class="sub-title">2. The Torso Taper (Bentuk V)</h3>
+            <p>Kebanyakan kemeja "Regular Fit" di toko itu potongannya lurus kotak (Boxy) biar muat buat cowok buncit. Kalau lo punya bahu lebar tapi pinggang ramping (V-Taper), kemeja ini bakal ngegelembung di pinggang (Muffin Top). Jelek banget.</p>
+            
+            <div class="cyan-box">
+                <p class="mb-0 text-sm"><strong>Solusi:</strong> Bawa ke tukang jahit. Bilang: "Mas, pasang kupnat (darts) di punggung belakang," atau "Kecilin jahitan samping (side seams) ngikutin badan." Biaya: 20-30 ribu per baju. Efek: Jutaan.</p>
+            </div>
+
+            <div class="page-number">04</div>
+            <div class="footer-logo">THE ARCHITECT</div>
+        </div>
+
+        <!-- ================= PAGE 5: CHAPTER 1 (FIT CONT.) ================= -->
+        <div class="page bg-white content-padding">
+            <h3 class="sub-title">3. The Pant Break (Manipulasi Tinggi Badan)</h3>
+            <p>Gimana celana ketemu sepatu nentuin tinggi badan visual lo.</p>
+            
+            <img 
+                src="assets/v3-fit-pants.jpg" 
+                onerror="this.onerror=null; this.src='https://placehold.co/800x300/f1f5f9/334155?text=FILE+NEEDED:+assets/v3-fit-pants.jpg';"
+                alt="No Break vs Quarter Break vs Full Break" 
+                class="technical-img"
+            >
+            <p class="img-caption">Fig 1.2: Jenis-jenis Pant Break.</p>
+
+            <ul class="list-disc space-y-2 mb-6">
+                <li><strong>No Break (The Architect Choice):</strong> Celana berakhir pas banget di atas sepatu. Gak ada lipetan kain. Garis celana lurus rapi. Bikin kaki kelihatan jenjang dan modern.</li>
+                <li><strong>Quarter Break:</strong> Celana nyentuh sepatu dikit, ada satu lipetan kecil di depan. Aman buat kantor konservatif.</li>
+                <li><strong>Full Break (HINDARI):</strong> Kain numpuk di sepatu berlipat-lipat kayak akordeon. Lo bakal kelihatan pendek, kedodoran, dan ceroboh.</li>
+            </ul>
+
+            <h3 class="sub-title">4. The Gig Line</h3>
+            <p>Ini detail kecil yang misahin amatir sama pro. Garis kancing kemeja lo, gesper ikat pinggang, dan resleting celana harus membentuk <strong>Satu Garis Lurus Vertikal</strong>. Ini ngasih efek rapi, disiplin, dan ngerampingin perut. Cek ini tiap kali abis dari toilet.</p>
+
+            <div class="page-number">05</div>
+            <div class="footer-logo">THE ARCHITECT</div>
+        </div>
+
+        <!-- ================= PAGE 6: CHAPTER 2 (ARCHETYPES) ================= -->
+        <div class="page bg-white content-padding">
+            <h1 class="chapter-title">CHAPTER 2:<br>ARCHETYPES (PILIH KARAKTER LO)</h1>
+            <p>Gak semua cowok harus pake jas. Pilih satu dari 3 Archetype ini yang paling cocok sama kepribadian dan lingkungan lo.</p>
+
+            <div class="space-y-8 mt-6">
+                <!-- A -->
+                <div class="flex flex-col md:flex-row gap-6 border-b border-slate-200 pb-6">
+                    <img src="assets/v3-arch-gentleman.jpg" onerror="this.onerror=null; this.src='https://placehold.co/300x400/e2e8f0/64748b?text=FILE:+v3-arch-gentleman.jpg';" class="w-full md:w-1/3 object-cover h-64 border border-slate-300">
+                    <div class="flex-grow">
+                        <h4 class="font-bold text-slate-800 text-lg mb-2">A. THE MODERN GENTLEMAN (Sartorial / Old Money)</h4>
+                        <ul class="list-disc pl-4 text-sm space-y-2">
+                            <li><strong>Vibe:</strong> Elegan, Dewasa, Mapan, Berkelas.</li>
+                            <li><strong>Key Items:</strong> Kemeja Oxford, Chino, Loafers, Blazer, Jam tangan kulit.</li>
+                            <li><strong>Cocok buat:</strong> Kerja kantoran, Meeting, Kencan makan malam.</li>
+                            <li><strong>Inspirasi:</strong> David Gandy, Karakter film "Kingsman".</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- B -->
+                <div class="flex flex-col md:flex-row gap-6 border-b border-slate-200 pb-6">
+                    <img src="assets/v3-arch-rugged.jpg" onerror="this.onerror=null; this.src='https://placehold.co/300x400/e2e8f0/64748b?text=FILE:+v3-arch-rugged.jpg';" class="w-full md:w-1/3 object-cover h-64 border border-slate-300">
+                    <div class="flex-grow">
+                        <h4 class="font-bold text-slate-800 text-lg mb-2">B. THE RUGGED MASCULINE (Workwear / Bad Boy)</h4>
+                        <ul class="list-disc pl-4 text-sm space-y-2">
+                            <li><strong>Vibe:</strong> Tangguh, Maskulin, Siap kerja fisik, "Don't mess with me".</li>
+                            <li><strong>Key Items:</strong> Kaos Polos Hitam/Putih, Jaket Denim/Kulit, Jeans tebal (Raw Denim), Boots Kulit (Redwing/Timberland).</li>
+                            <li><strong>Cocok buat:</strong> Nongkrong, Naik motor, Konser, Kencan santai.</li>
+                            <li><strong>Inspirasi:</strong> Wolverine, Karakter film "Top Gun".</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- C -->
+                <div class="flex flex-col md:flex-row gap-6">
+                    <img src="assets/v3-arch-tech.jpg" onerror="this.onerror=null; this.src='https://placehold.co/300x400/e2e8f0/64748b?text=FILE:+v3-arch-tech.jpg';" class="w-full md:w-1/3 object-cover h-64 border border-slate-300">
+                    <div class="flex-grow">
+                        <h4 class="font-bold text-slate-800 text-lg mb-2">C. THE TECH MINIMALIST (Clean / Futuristic)</h4>
+                        <ul class="list-disc pl-4 text-sm space-y-2">
+                            <li><strong>Vibe:</strong> Efisien, Cerdas, Modern, Praktis.</li>
+                            <li><strong>Key Items:</strong> Kaos polos kualitas tinggi, Celana bahan teknikal (Uniqlo ankle pants), Sneakers putih bersih, Smartwatch, Backpack rapi.</li>
+                            <li><strong>Cocok buat:</strong> Startup, WFH di cafe, Harian.</li>
+                            <li><strong>Inspirasi:</strong> Steve Jobs (tapi versi modern), Mark Zuckerberg (versi upgrade).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slate-box mt-4">
+                <p class="mb-0 text-sm">Pilih satu jalur utama, tapi lo boleh campur dikit-dikit (Mix & Match).</p>
+            </div>
+
+            <div class="page-number">06</div>
+            <div class="footer-logo">THE ARCHITECT</div>
+        </div>
+
+        <!-- ================= PAGE 7: CHAPTER 3 ================= -->
+        <div class="page bg-white content-padding">
+            <h1 class="chapter-title">CHAPTER 3:<br>FABRIC SCIENCE (SURVIVAL TROPIS)</h1>
+            <p>Indonesia itu panas, lembab, dan polusi. Musuh kita keringat dan bau ketek. Salah pilih kain = bunuh diri sosial.</p>
+            
+            <div class="flex items-start gap-4 mb-6 bg-red-50 p-4 border-l-4 border-red-500">
+                <div class="text-red-700 font-bold text-2xl mt-1"><i class="fas fa-ban"></i></div>
+                <div>
+                    <h4 class="font-bold text-red-900 mb-1">Musuh Utama: POLYESTER</h4>
+                    <p class="text-sm text-red-800 m-0 text-justify">Cek label baju di dalem (care label). Kalau tulisan "100% Polyester" atau campuran sintetis di atas 50%: JANGAN BELI, walau murah atau diskon 90%.</p>
+                    <p class="text-sm text-red-800 mt-2 text-justify"><strong>Kenapa?</strong> Polyester itu plastik. Dia gak napas (non-breathable). Dia nahan panas badan kayak oven dan merangkap bakteri bau. Lo bakal bau apek dalam 1 jam di luar ruangan. Kemeja mengkilap murah biasanya Polyester. Buang.</p>
+                </div>
+            </div>
+
+            <h4 class="font-bold text-slate-800 mb-2">Sahabat Iklim Tropis:</h4>
+            <ul class="list-disc space-y-2 mb-8">
+                <li><strong>Cotton (Katun):</strong> Standar emas. Cari "100% Cotton". Nyerap keringat, sirkulasi udara bagus.</li>
+                <li><strong>Linen:</strong> Serat tanaman rami. Tenunannya renggang, angin masuk wuzzz. <br><em>Pro Tip:</em> Linen gampang kusut. TAPI, di dunia fashion, kerutan Linen itu dianggap "Estetik Orang Kaya" (Sprezzatura)—kesan santai yang mewah. Jangan disetrika sampe licin mati.</li>
+                <li><strong>Tropical Wool:</strong> Buat celana formal. Cari wol tipis (High Twist). Jatuhnya kain (drape) mewah banget, jauh beda sama katun tebel yang kaku.</li>
+            </ul>
+
+            <div class="slate-box">
+                <h4 class="font-bold text-slate-900 mb-2">Maintenance Protocol (Merawat Aset)</h4>
+                <ul class="list-disc pl-4 text-sm space-y-2">
+                    <li><strong>Cuci:</strong> Jangan keseringan cuci jeans/jaket (kecuali bau). Cuci pake air dingin (Cold Wash) biar gak nyusut.</li>
+                    <li><strong>Jemur:</strong> Balik baju (dalem di luar) biar warna gak pudar kena matahari. Jangan pake hanger buat kaos basah (bahu bakal melar), jemur di tiang.</li>
+                    <li><strong>Sepatu:</strong> Beli Shoe Tree (penyangga sepatu) murah di online shop. Masukin ke sepatu kulit/boots pas gak dipake biar bentuknya gak penyok dan kerutannya minim.</li>
+                </ul>
+            </div>
+
+            <div class="page-number">08</div>
+            <div class="footer-logo">THE ARCHITECT</div>
+        </div>
+
+        <!-- ================= PAGE 8: CHAPTER 4 ================= -->
+        <div class="page bg-white content-padding">
+            <h1 class="chapter-title">CHAPTER 4:<br>COLOR & PROPORTION</h1>
+            
+            <h3 class="sub-title">The Rule of Thirds (Rasio Visual)</h3>
+            
+            <img 
+                src="assets/v3-rule-thirds.jpg" 
+                onerror="this.onerror=null; this.src='https://placehold.co/800x300/f1f5f9/334155?text=FILE+NEEDED:+assets/v3-rule-thirds.jpg';"
+                alt="1:1 Ratio vs 1:2 Ratio Comparison" 
+                class="technical-img"
+            >
+            
+            <p>Otak manusia suka rasio <strong>1:2 (sepertiga dan dua pertiga)</strong>, bukan 1:1 (setengah-setengah).</p>
+            <ul class="list-disc space-y-2 mb-6">
+                <li><strong>Salah (1:1):</strong> Baju panjangnya sampe pantat, nutupin setengah badan. Kaki kelihatan pendek. Lo kelihatan kayak kotak.</li>
+                <li><strong>Benar (1:2):</strong> Masukin baju (Tuck in) atau pake jaket crop. Torso jadi 1/3, Kaki jadi 2/3. Ini bikin kaki lo kelihatan jenjang dan lo kelihatan lebih tinggi tegap.</li>
+            </ul>
+
+            <h3 class="sub-title">Color Theory: Kontras Wajah</h3>
+            <p>Selain Skin Tone (Warm vs Cool), yang paling ngaruh itu Kontras Wajah.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-slate-50 p-4 border-l-4 border-slate-800">
+                    <h4 class="font-bold mb-2">High Contrast</h4>
+                    <p class="text-sm mb-2">Rambut Hitam Pekat + Kulit Putih/Terang.</p>
+                    <p class="text-sm font-bold text-cyan-700">Strategi:</p>
+                    <p class="text-sm">Tiru kontras ini di baju. Pake Putih + Hitam. Navy + Putih. Warna berani.</p>
+                </div>
+                <div class="bg-slate-50 p-4 border-l-4 border-slate-400">
+                    <h4 class="font-bold mb-2">Low Contrast</h4>
+                    <p class="text-sm mb-2">Kulit Gelap + Rambut Hitam (Mirip). Atau Kulit Pucat + Rambut Pirang/Abu.</p>
+                    <p class="text-sm font-bold text-cyan-700">Strategi:</p>
+                    <p class="text-sm">Pake warna Monochromatic (senada). Biru tua + Biru muda. Coklat tua + Krem. Jangan ada tabrakan warna tajam yang "motong" badan lo.</p>
+                </div>
+            </div>
+
+            <h3 class="sub-title">The Power of Neutrals</h3>
+            <p>Lemari <em>High Value Man</em> itu isinya ngebosenin: <strong>Hitam, Putih, Navy, Abu-abu, Olive (Hijau Army), Krem, Coklat.</strong></p>
+            <p><strong>Kenapa?</strong> Semua warna ini bisa dicampur (Mix & Match) dengan mata tertutup dan tetep kelihatan bagus. Lo gak perlu mikir tiap pagi. Efisien.</p>
+
+            <div class="page-number">10</div>
+            <div class="footer-logo">THE ARCHITECT</div>
+        </div>
+
+        <!-- ================= PAGE 9: CHAPTER 5 ================= -->
+        <div class="page bg-white content-padding">
+            <h1 class="chapter-title">CHAPTER 5:<br>BODY TYPE ARCHITECTURE</h1>
+            <p>Pake baju buat koreksi visual badan lo (Ilusi Optik).</p>
+
+            <img 
+                src="assets/v3-body-types.jpg" 
+                onerror="this.onerror=null; this.src='https://placehold.co/800x300/f8fafc/334155?text=FILE+NEEDED:+assets/v3-body-types.jpg';"
+                alt="Short vs Big vs Skinny Hacks" 
+                class="technical-img mb-6"
+            >
+
+            <div class="space-y-6">
+                <div>
+                    <h4 class="font-bold text-slate-800 border-b border-slate-300 pb-1 mb-2">A. THE SHORT KING (Cowok &lt; 165cm)</h4>
+                    <p class="text-sm italic mb-2">Goal: Bikin garis vertikal tanpa putus.</p>
+                    <ul class="list-disc pl-4 text-sm">
+                        <li><strong>Monokrom:</strong> Atasan sama bawahan warnanya mirip (Gelap lebih oke). Ini nyamarin batas pinggang, bikin ilusi badan lo nyambung panjang.</li>
+                        <li><strong>Masukin Baju:</strong> Wajib Tuck in. Biar kaki kelihatan lebih panjang (Rule of Thirds).</li>
+                        <li><strong>Sepatu:</strong> Hindari High Top (kayak Jordan) yang motong mata kaki. Pake Low Top atau Chelsea Boots (Bonus tinggi instan 3-4cm).</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-800 border-b border-slate-300 pb-1 mb-2">B. THE BIG GUY (Cowok Berisi/Buncit)</h4>
+                    <p class="text-sm italic mb-2">Goal: Nyamarin perut, kasih struktur.</p>
+                    <ul class="list-disc pl-4 text-sm">
+                        <li><strong>Outerwear Magic:</strong> Pake Jaket/Blazer/Kemeja Flanel yang GAK DIKANCING. Garis vertikal jaket di kiri-kanan perut bakal "memotong" lebar perut lo secara visual. Lo langsung kelihatan lebih ramping.</li>
+                        <li><strong>High Rise:</strong> Pake celana di atas pinggang (deket puser), jangan di bawah perut buncit (ntar perutnya tumpah).</li>
+                        <li><strong>Struktur:</strong> Hindari kaos tipis lemes yang nyetak lemak. Pilih bahan kaku (Heavyweight) atau berkerah.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-800 border-b border-slate-300 pb-1 mb-2">C. THE SKINNY GUY (Cowok Kurus)</h4>
+                    <p class="text-sm italic mb-2">Goal: Nambah volume.</p>
+                    <ul class="list-disc pl-4 text-sm">
+                        <li><strong>Layering:</strong> Kaos + Kemeja Flanel + Jaket Denim. Tumpuk aja bro.</li>
+                        <li><strong>Texture:</strong> Pilih kain kasar (Corduroy, Knit, Raw Denim). Tekstur nambah berat visual.</li>
+                        <li><strong>Fit:</strong> Jangan pake Skinny Fit (lo bakal kayak tengkorak). Pilih Slim Fit atau Regular Tapered.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="page-number">11</div>
+            <div class="footer-logo">THE ARCHITECT</div>
+        </div>
+
+        <!-- ================= PAGE 10: CHAPTER 6 (WARDROBE) ================= -->
+        <div class="page bg-white content-padding">
+            <h1 class="chapter-title">CHAPTER 6:<br>THE CAPSULE WARDROBE</h1>
+            <p>Gak usah beli barang aneh-aneh. Punya 14 item ini aja dengan kualitas terbaik, lo udah aman buat segala acara.</p>
+
+            <img 
+                src="assets/v3-wardrobe.jpg" 
+                onerror="this.onerror=null; this.src='https://placehold.co/800x400/f1f5f9/334155?text=FILE+NEEDED:+assets/v3-wardrobe.jpg';"
+                alt="Essential Wardrobe Items Layout" 
+                class="technical-img mb-6"
+            >
+
+            <h4 class="font-bold text-cyan-700 mb-2 border-b border-cyan-200 pb-1">ATASAN (THE CORE)</h4>
+            <ul class="list-disc pl-4 text-sm space-y-2 mb-6">
+                <li><strong>Kaos Polos (Hitam & Putih):</strong> Cari bahan Heavyweight (tebel, >200gsm). Kerah rapet, gak gampang melar. Puting gak nyeplak.</li>
+                <li><strong>Kemeja Oxford Putih (OCBD):</strong> Kemeja putih tekstur kasar. Wajib punya. Lengan digulung = Sexy.</li>
+                <li><strong>Polo Shirt:</strong> Navy atau Hitam. Kerah kaku. Pastikan lengan nge-press di otot Tricep biar kelihatan kekar.</li>
+                <li><strong>Outerwear:</strong> Jaket Denim (Trucker) biru gelap atau Harrington Jacket (Krem/Navy).</li>
+            </ul>
+
+            <h4 class="font-bold text-cyan-700 mb-2 border-b border-cyan-200 pb-1">BAWAHAN (THE BASE)</h4>
+            <ul class="list-disc pl-4 text-sm space-y-2 mb-6">
+                <li><strong>Jeans Biru Gelap (Indigo):</strong> Polos. Gak ada sobekan, gak ada luntur (fading) lebay.</li>
+                <li><strong>Chino Pants:</strong> Warna Khaki (Krem pasir) atau Olive Green.</li>
+                <li><strong>Celana Bahan (Wool Trousers):</strong> Warna Charcoal (Abu tua) atau Navy. Potongan Ankle Cut. Ada Pleats (lipatan) di pinggang lebih bagus buat kenyamanan.</li>
+            </ul>
+
+            <div class="page-number">13</div>
+            <div class="footer-logo">THE ARCHITECT</div>
+        </div>
+
+        <!-- ================= PAGE 11: CHAPTER 6 CONT. ================= -->
+        <div class="page bg-white content-padding">
+            <h4 class="font-bold text-cyan-700 mb-2 border-b border-cyan-200 pb-1">ALAS KAKI (THE FOUNDATION)</h4>
+            
+            <img 
+                src="assets/v3-shoes.jpg" 
+                onerror="this.onerror=null; this.src='https://placehold.co/800x200/f8fafc/334155?text=FILE+NEEDED:+assets/v3-shoes.jpg';"
+                alt="White Sneakers, Boots, Loafers" 
+                class="technical-img mb-4"
+            >
+
+            <ul class="list-disc pl-4 text-sm space-y-2 mb-6">
+                <li><strong>White Minimalist Sneakers:</strong> Bahan kulit (Leather), bukan kanvas. (Contoh: Stan Smith, Common Projects, atau brand lokal polos). Bersihin tiap minggu! Wajib putih bersih.</li>
+                <li><strong>Leather Boots:</strong> Chelsea Boots (Coklat Tua/Hitam Suede). Ngasih aura "Bad Boy", maskulin, dan nambah tinggi badan.</li>
+                <li><strong>Penny Loafers:</strong> Sepatu selop kulit. Pake sama celana bahan. Kelihatan santai tapi "Old Money".</li>
+            </ul>
+
+            <h4 class="font-bold text-cyan-700 mb-2 border-b border-cyan-200 pb-1">AKSESORIS (THE DETAILS)</h4>
+            <ul class="list-disc pl-4 text-sm space-y-2">
+                <li><strong>Jam Tangan:</strong> Analog Only. Jangan pake Smartwatch pas kencan (kelihatan kayak gadget freak). Diameter jam jangan kegedean (38-40mm pas buat rata-rata tangan Indo).</li>
+                <li><strong>Ikat Pinggang:</strong> Kulit sederhana. Warna harus sama kayak sepatu lo.</li>
+                <li><strong>Kacamata Hitam:</strong> Pilih sesuai bentuk wajah (Lihat Vol 1). Wayfarer atau Clubmaster biasanya aman buat semua.</li>
+                <li><strong>Parfum:</strong> (Lihat Vol 4).</li>
+            </ul>
+
+            <div class="page-number">14</div>
+            <div class="footer-logo">THE ARCHITECT</div>
+        </div>
+
+        <!-- ================= PAGE 12: CHAPTER 7 (OCCASION) ================= -->
+        <div class="page bg-white content-padding">
+            <h1 class="chapter-title">CHAPTER 7:<br>OCCASION MASTERY (KONTEKS)</h1>
+            <p>Jangan sampe Saltum (Salah Kostum).</p>
+
+            <div class="space-y-8 mt-6">
+                <!-- LOOK 1 -->
+                <div class="flex flex-col md:flex-row gap-4 items-start border-b border-slate-100 pb-6">
+                    <img 
+                        src="assets/v3-look-date.jpg" 
+                        onerror="this.onerror=null; this.src='https://placehold.co/200x300/e2e8f0/64748b?text=FILE:+v3-look-date.jpg';" 
+                        class="w-full md:w-1/3 object-cover h-64"
+                    >
+                    <div>
+                        <h4 class="font-bold text-lg text-slate-900">1. THE FIRST DATE LOOK (Kencan Pertama)</h4>
+                        <p class="text-sm italic text-cyan-600 mb-2">Goal: Ganteng, Rapi, tapi gak kelihatan "berusaha terlalu keras".</p>
+                        <ul class="list-disc pl-4 text-sm">
+                            <li><strong>Atasan:</strong> Kemeja Oxford Putih (lengan digulung) ATAU Polo Shirt Hitam.</li>
+                            <li><strong>Bawahan:</strong> Jeans Biru Gelap atau Chino Olive.</li>
+                            <li><strong>Sepatu:</strong> Chelsea Boots (biar kelihatan tinggi & maskulin) atau Sneakers Putih bersih.</li>
+                            <li><strong>Aksesori:</strong> Jam tangan analog, parfum Date Night.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- LOOK 2 -->
+                <div class="flex flex-col md:flex-row gap-4 items-start border-b border-slate-100 pb-6">
+                    <img 
+                        src="assets/v3-look-office.jpg" 
+                        onerror="this.onerror=null; this.src='https://placehold.co/200x300/e2e8f0/64748b?text=FILE:+v3-look-office.jpg';" 
+                        class="w-full md:w-1/3 object-cover h-64"
+                    >
+                    <div>
+                        <h4 class="font-bold text-lg text-slate-900">2. THE OFFICE / BUSINESS LOOK</h4>
+                        <p class="text-sm italic text-cyan-600 mb-2">Goal: Kompeten, Profesional, Dapat Dipercaya.</p>
+                        <ul class="list-disc pl-4 text-sm">
+                            <li><strong>Atasan:</strong> Kemeja (dimasukin), kalau perlu tambah Blazer Navy.</li>
+                            <li><strong>Bawahan:</strong> Celana Bahan (Wool Trousers) Abu Tua/Navy.</li>
+                            <li><strong>Sepatu:</strong> Loafers atau Sneakers Kulit (kalau kantor santai).</li>
+                            <li><strong>Aksesori:</strong> Jam tangan rantai/kulit.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- LOOK 3 -->
+                <div class="flex flex-col md:flex-row gap-4 items-start">
+                    <img 
+                        src="assets/v3-look-casual.jpg" 
+                        onerror="this.onerror=null; this.src='https://placehold.co/200x300/e2e8f0/64748b?text=FILE:+v3-look-casual.jpg';" 
+                        class="w-full md:w-1/3 object-cover h-64"
+                    >
+                    <div>
+                        <h4 class="font-bold text-lg text-slate-900">3. THE WEEKEND / COFFEE SHOP LOOK</h4>
+                        <p class="text-sm italic text-cyan-600 mb-2">Goal: Santai, Nyaman, tapi Stylish.</p>
+                        <ul class="list-disc pl-4 text-sm">
+                            <li><strong>Atasan:</strong> Kaos Polos Putih + Kemeja Flanel (dibuka kancingnya).</li>
+                            <li><strong>Bawahan:</strong> Jeans atau Chino pendek (di atas lutut).</li>
+                            <li><strong>Sepatu:</strong> Sneakers Putih atau Boots.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-number">16</div>
+            <div class="footer-logo">THE ARCHITECT</div>
+        </div>
+
+        <!-- ================= PAGE 13: ACTION PLAN ================= -->
+        <div class="page bg-white content-padding">
+             <h1 class="chapter-title text-cyan-700">ACTION PLAN:<br>MINGGU PERTAMA</h1>
+             
+             <img 
+                 src="assets/v3-action.jpg" 
+                 onerror="this.onerror=null; this.src='https://placehold.co/800x150/ecfeff/06b6d4?text=FILE+NEEDED:+assets/v3-action.jpg';"
+                 alt="Action Plan Header" 
+                 class="technical-img mb-8 border-none"
+             >
+
+             <div class="space-y-6 mt-8">
+                 <div class="flex items-start gap-4">
+                     <div class="bg-slate-900 text-white font-bold p-3 w-24 text-center rounded flex-shrink-0 text-xs">THE PURGE</div>
+                     <div class="p-4 bg-slate-50 border border-slate-200 flex-grow rounded">
+                         <p class="font-bold text-slate-900 mb-1">BUANG SAMPAH</p>
+                         <p class="text-sm m-0">Buka lemari lo sekarang. Buang/sumbangin baju yang: Kerahnya melar, warnanya pudar, ada sablon tulisan gede/alay, bahannya Polyester panas, ukurannya kegedean/kekecilan. Sisain yang bikin lo ngerasa ganteng doang.</p>
+                     </div>
+                 </div>
+
+                 <div class="flex items-start gap-4">
+                     <div class="bg-slate-900 text-white font-bold p-3 w-24 text-center rounded flex-shrink-0 text-xs">THE TAILOR</div>
+                     <div class="p-4 bg-slate-50 border border-slate-200 flex-grow rounded">
+                         <p class="font-bold text-slate-900 mb-1">KUNJUNGAN KE VERMAK</p>
+                         <p class="text-sm m-0">Ambil 3 kemeja dan 2 celana terbaik lo yang agak kegedean. Bawa ke tukang vermak. Bilang gini: "Mas, pasang kupnat belakang, kecilin lengan dikit, potong celana pas mata kaki (No Break)."</p>
+                     </div>
+                 </div>
+
+                 <div class="flex items-start gap-4">
+                     <div class="bg-cyan-600 text-white font-bold p-3 w-24 text-center rounded flex-shrink-0 text-xs">INVESTASI</div>
+                     <div class="p-4 bg-cyan-50 border border-cyan-200 flex-grow rounded">
+                         <p class="font-bold text-slate-900 mb-1">WHITE SNEAKERS</p>
+                         <p class="text-sm m-0">Beli 1 pasang White Leather Sneakers kualitas bagus. Ini sepatu paling serbaguna di dunia.</p>
+                     </div>
+                 </div>
+             </div>
+
+             <div class="mt-12 text-center border-t border-slate-200 pt-8">
+                 <p class="text-xl md:text-2xl font-bold font-oswald text-slate-900">END OF VOLUME 3</p>
+                 <p class="text-slate-500 text-sm">Next: Volume 4 (Scent & Grooming).</p>
+             </div>
+             <div class="page-number">17</div>
+             <div class="footer-logo">THE ARCHITECT</div>
+        </div>
+
+    </div>
+</body>
+</html>
